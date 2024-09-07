@@ -19,7 +19,7 @@ jobs:
         with:
           repository: Access-At/proxy-scraping
           ref: refs/heads/main
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.TOKEN }}
 
         # uses: actions/checkout@v3
         # with:
