@@ -14,18 +14,20 @@ jobs:
       - name: Checkout current repository
         uses: actions/checkout@v3
 
-      - name: Checkout another repository
-        uses: actions/checkout@master
-        with:
-          repository: Access-At/proxy-scraping
-          ref: refs/heads/main
-          token: ${{ secrets.TOKEN }}
+      # - name: Checkout another repository
+      #   uses: actions/checkout@master
+      #   with:
+      #     repository: Access-At/proxy-scraping
+      #     ref: refs/heads/main
+      #     token: ${{ secrets.TOKEN }}
 
-        # uses: actions/checkout@v3
-        # with:
-        #   repository: Access-At/proxy-scraping
-        #   token: ${{ secrets.GITHUB_TOKEN }}
-        #   path: proxy-scraping
+      - name: Clone repository
+        uses: GuillaumeFalourd/clone-github-repo-action@v2.3
+        with:
+          owner: 'Access-At'
+          repository: 'Access-At/proxy-scraping'
+          access-token: ${{ secrets.TOKEN }}
+
 
       - name: Install Bun
         uses: oven-sh/setup-bun@v1
