@@ -1,0 +1,55 @@
+name: Live Proxy Updater
+
+on:
+  schedule:
+    # - cron: '0 * * * *'  # Menjadwalkan workflow untuk berjalan setiap 1 jam
+    - cron: '*/1 * * * *'  # Menjadwalkan workflow untuk berjalan setiap 1 menit
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+
+jobs:
+  run-bun:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout current repository
+        uses: actions/checkout@v3
+
+      - name: Checkout another repository
+        uses: actions/checkout@v3
+        with:
+          repository: Access-At/proxy-scraping
+          path: proxy-scraping
+
+      - name: Install Bun
+        run: |
+          curl -fsSL https://bun.sh/install | bash
+          export BUN_INSTALL="$HOME/.bun"
+          export PATH="$BUN_INSTALL/bin:$PATH"
+
+      - name: Run index.ts
+        run: bun run proxy-scraping/index.ts
+
+      - name: Copy files proxy
+        run: |
+          find proxy-scraping -type f \( -name "*.txt" -o -name "*.json" \) ! -name "package.json" ! -name "tsconfig.json" -exec cp {} . \;
+
+      - name: Configure Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Push changes
+        run: |
+          git add .
+          git commit -m "Automated commit: Proxy updated"
+          git push
