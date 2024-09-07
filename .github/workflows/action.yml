@@ -32,9 +32,11 @@ jobs:
           curl -fsSL https://bun.sh/install | bash
           export BUN_INSTALL="$HOME/.bun"
           export PATH="$BUN_INSTALL/bin:$PATH"
+          
 
       - name: Run index.ts
-        run: bun run proxy-scraping/index.ts
+        # run: bun run proxy-scraping/index.ts
+        run: bun -h
 
       - name: Copy files proxy
         run: |
