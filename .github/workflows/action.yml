@@ -5,16 +5,6 @@ on:
     # - cron: '0 * * * *'  # Menjadwalkan workflow untuk berjalan setiap 1 jam
     - cron: '*/1 * * * *'  # Menjadwalkan workflow untuk berjalan setiap 1 menit
   workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-        type: choice
-        options:
-        - info
-        - warning
-        - debug
 
 jobs:
   run-bun:
@@ -28,7 +18,8 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: Access-At/proxy-scraping
-          token: ${{ secrets.GITHUB_TOKEN }} # Menggunakan GITHUB_TOKEN untuk akses
+          # token: ${{ secrets.GITHUB_TOKEN }} # Menggunakan GITHUB_TOKEN untuk akses
+          ref: refs/heads/main
           path: proxy-scraping
 
       - name: Install Bun
