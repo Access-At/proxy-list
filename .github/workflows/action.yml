@@ -25,7 +25,7 @@ jobs:
         uses: GuillaumeFalourd/clone-github-repo-action@v2.3
         with:
           owner: 'Access-At'
-          repository: 'Access-At/proxy-scraping'
+          repository: 'proxy-scraping'
           access-token: ${{ secrets.TOKEN }}
 
 
