@@ -29,7 +29,6 @@ jobs:
       - name: Install dependencies and run
         run: |
           cd proxy-scraping
-          bun install
           bun run index.ts
 
       - name: Copy files proxy
