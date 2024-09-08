@@ -26,8 +26,11 @@ jobs:
         with:
           bun-version: latest
 
-      - name: Run index.ts
-        run: bun run proxy-scraping/index.ts
+      - name: Install dependencies and run
+        run: |
+        cd proxy-scraping
+        bun install
+        bun run index.ts
 
       - name: Copy files proxy
         run: |
